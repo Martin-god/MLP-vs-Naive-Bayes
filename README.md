@@ -6,7 +6,12 @@
 Este trabajo compara dos modelos de aprendizaje supervisado al momento de detectar intrusiones de redes: *Naive Bayes* como modelo de aprendizaje probabilístico y *Multilayer Perceptron (MLP)* como modelo de aprendizaje profundo.
 
 Ambos modelos se aplican utilizando el dataset *CICIDS-2017*, que contiene trafico de red normal y diferentes tipos de ataques. Esto con el fin de analizar y comparar su desempeño utilizando distintas metricas, para luego, contrastar los resultados obtenidos con los reportados en el trabajo de Ali et al. (2025).
+
 ---
 ## 2. Motivacion
 
-Como consecuencia de la digitalización hubo un incremento en la vulnerabilidad de las redes informáticas ante amenazas. Por ello, la detección de intrusiones en redes se convirtió en un problema de gran relevancia
+Como consecuencia de la digitalización hubo un incremento en la vulnerabilidad de las redes informáticas ante amenazas, por ello, la detección de intrusiones en redes se convirtió en un problema de gran relevancia.
+
+Se toma como referencia el articulo de Ali et al. *Deep Learning vs. Machine Learning for Intrusion Detection in Computer Networks: A Comparative Study* que compara varios modelos de machine learning clasicos y varios modelos de deep learning.
+
+La comparacion entre MLP y Naive Bayes
