@@ -19,6 +19,7 @@ Este trabajo toma como referencia el artículo **Deep Learning vs. Machine Learn
 ---
 ## 3. Datos
 
-Se utilizara el dataset *CICIDS-2017 (Canadian Institute for Cybersecurity Intrusion Detection Evaluation Dataset 2017).
+Se utilizara el dataset *CICIDS-2017 (Canadian Institute for Cybersecurity Intrusion Detection Evaluation Dataset 2017)*.
 
-Este dataset contiene trafico de red capturado a lo largo de 5 dias, contiene trafico normal y distintos tipos de ataques. Originalmente, el dataset cuenta con aproximadamente 2.830.743 observaciones y 79 columnas, entre las cuales se tiene a la variable objetivo '' 'label' ''.
+Este dataset contiene trafico de red capturado a lo largo de 5 dias, contiene trafico normal y distintos tipos de ataques. Originalmente, el dataset cuenta con aproximadamente 2.830.743 observaciones y 79 columnas, entre las cuales se tiene a la variable objetivo `` `label` ``.
+
