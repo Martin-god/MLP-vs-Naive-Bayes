@@ -12,6 +12,13 @@ Ambos modelos se aplican utilizando el dataset *CICIDS-2017*, que contiene trafi
 
 Como consecuencia de la digitalización hubo un incremento en la vulnerabilidad de las redes informáticas ante amenazas, por ello, la detección de intrusiones en redes se convirtió en un problema de gran relevancia.
 
-Se toma como referencia el articulo de Ali et al. *Deep Learning vs. Machine Learning for Intrusion Detection in Computer Networks: A Comparative Study* que compara varios modelos de machine learning clasicos y varios modelos de deep learning.
+La comparación entre MLP y Naive Bayes resulta interesante pues ambos modelos representan filosofías de aprendizaje automático distintas. Además, pone sobre la mesa la discusión de "más complejo no siempre es mejor", pues, al Naive Bayes ser utilizado generalmente como baseline, si un MLP no supera significativamente la precisión de NB en un conjunto de datos, no se justifica el gasto computacional que el mismo tiene.
 
-La comparacion entre MLP y Naive Bayes
+Este trabajo toma como referencia el artículo **Deep Learning vs. Machine Learning for Intrusion Detection in Computer Networks: A Comparative Study** (Ali et al., 2025), que compara modelos clásicos de aprendizaje automático vs modelos de aprendizaje profundo sobre el dataset CICIDS-2017.
+
+---
+## 3. Datos
+
+Se utilizara el dataset *CICIDS-2017 (Canadian Institute for Cybersecurity Intrusion Detection Evaluation Dataset 2017).
+
+Este dataset contiene trafico de red capturado a lo largo de 5 dias, contiene trafico normal y distintos tipos de ataques. Originalmente, el dataset cuenta con aproximadamente 2.830.743 observaciones y 79 columnas, entre las cuales se tiene a la variable objetivo '' 'label' ''.
