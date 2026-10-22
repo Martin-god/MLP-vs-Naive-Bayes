@@ -1,0 +1,400 @@
+\documentclass{beamer}
+%Information to be included in the title page:
+\usepackage[utf8]{inputenc}
+\usepackage{ragged2e}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usetheme{Madrid}
+\usecolortheme{default}
+\usepackage{booktabs}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amssymb} 
+
+
+
+\title{Trabajo final Métodos de Análisis de Datos 1}
+\subtitle{Naive Bayes vs. MLP}
+\author{Martín Godoy}
+\institute{MAD1 2026}
+
+\date{Octubre 2026}
+
+\begin{document}
+
+\frame{\titlepage}
+
+
+\begin{frame}{Introducción}
+
+    La digitalización incrementó la vulnerabilidad de las redes informáticas ante amenazas. Los sistemas de detección de intrusiones (IDS) tradicionales, basados en firmas, son eficaces frente a ataques conocidos, pero presentan limitaciones ante nuevas amenazas.
+
+    \vspace{0.5cm}
+    
+    Las técnicas de \textit{Machine Learning} (ML) y \textit{Deep Learning} (DL) surgen como alternativas para mejorar la precisión, eficiencia y adaptabilidad de estos sistemas, permitiendo abordar la complejidad del tráfico de red.
+
+    \vspace{0.5cm}
+    
+    \textbf{Este trabajo se realizo en base a el paper:} \href{https://www.mdpi.com/2076-3417/15/4/1903}{\textbf{Deep Learning vs. Machine Learning}}
+\end{frame}
+
+
+\begin{frame}{Información del dataset (1)}
+    \begin{itemize}
+        \item El dataset \textbf{CICIDS2017} recopila tráfico de red durante cinco días, incluyendo actividad benigna y diversos ataques, como fuerza bruta, DoS, DDoS e infiltración.
+
+        \vspace{0.5cm}
+
+        \item Se priorizó el realismo mediante dos sistemas: \textbf{B-Profile}, que modela el comportamiento de usuarios reales para generar tráfico benigno, y \textbf{M-Profile}, que define y ejecuta los escenarios de ataque.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Información del dataset (2)}
+    \begin{itemize}
+        \item A continuación, un gráfico de barras comparando distribuciones de clase antes y después de SMOTE: 
+    \end{itemize}
+            
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=1\linewidth]{imagen_2026-09-16_160455262.png}
+        \caption{Clases Antes vs Después}
+        \label{fig:ant.vs.dps smote}
+    \end{figure}   
+\end{frame}
+
+
+\begin{frame}{Perceptrón Multicapa (MLP)}
+\begin{itemize}
+        \item \textbf{Arquitectura y Flujo:}
+        \begin{itemize}
+            \item Red neuronal \textit{feedforward} que aprende funciones mediante la composición de transformaciones por capas.
+            \item El flujo transita desde la entrada (datos crudos), pasa por capas ocultas (representaciones intermedias) hasta la salida (predicción final).
+        \end{itemize}
+        
+        \item \textbf{Superación de Modelos Lineales:}
+        \begin{itemize}
+            \item Supera la limitación de capacidad de los modelos lineales (incapaces de capturar interacciones entre variables).
+            \item La incorporación de \textbf{funciones de activación no lineales} (ej. ReLU) le permite modelar relaciones complejas.
+        \end{itemize}
+
+        \item \textbf{Entrenamiento:} Se basa en métodos de \textbf{optimización por gradientes}.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{MLP: Hiperparámetros}
+    Los hiperparámetros principales de el MLP son:
+    \begin{itemize}
+        \item \textbf{Profundidad:} Número de capas; redes más profundas representan funciones más complejas.
+        \item \textbf{Ancho:} Cantidad de neuronas por capa oculta; determina la capacidad de representación.
+        \item \textbf{Función de activación:} Introduce no linealidad (por defecto, ReLU).
+        \item \textbf{Optimización:} Algoritmo que ajusta los parámetros mediante gradientes.
+        \item \textbf{Inicialización:} Valores iniciales de los parámetros previos al entrenamiento.
+    \end{itemize} 
+\end{frame}
+
+
+\begin{frame}{MLP: Fortalezas y limitaciones}
+    \textbf{Fortalezas:}
+        \begin{itemize}
+            \item \textbf{No linealidad:} Aproximación de funciones complejas mediante capas ocultas.
+            
+            \item \textbf{Flexibilidad:} Arquitectura adaptable ajustando profundidad y ancho.
+        \end{itemize}
+    
+        \vspace{0.2cm}
+
+    \textbf{Limitaciones:}
+        \begin{itemize}
+            \item \textbf{Optimización no convexa:} Presencia de múltiples mínimos locales que dificultan hallar el óptimo global.
+            
+            \item \textbf{Teorema de Aproximación Universal:} Garantiza la capacidad de representación teórica con redes grandes, pero \textit{no} asegura que el algoritmo logre aprenderla.
+        \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Naive Bayes}
+    \begin{itemize}
+        \item \textbf{Enfoque probabilístico:} Estima la probabilidad de clase de una observación a partir de sus características.
+        
+        \item \textbf{Supuesto clave:} Independencia condicional entre características dado la clase. Permite factorizar la distribución conjunta:
+        $$f_j(X) = \prod_{k=1}^p f_{jk}(X_k)$$
+        
+        \item \textbf{Ventaja práctica:} Simplifica enormemente la estimación (ej. usando densidad por kernel unidimensional) y es muy robusto ante alta dimensionalidad, aun cuando el supuesto no se cumpla estrictamente.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Naive Bayes: Fortalezas y limitaciones}
+    \textbf{Fortalezas:}
+    \begin{itemize}
+        \item \textbf{Eficiencia computacional:} El supuesto de independencia reduce drásticamente la complejidad de la estimación.
+        
+        \item \textbf{Alta dimensión:} Muy robusto y efectivo en espacios con un gran número de características.
+    \end{itemize}
+    
+    \vspace{0.2cm}
+    
+    \textbf{Limitaciones:}
+    \begin{itemize}
+        \item \textbf{Violación del supuesto:} La independencia condicional rara vez se cumple en la práctica real.
+        
+        \item \textbf{Sesgo estructural:} Ignorar las interacciones entre variables introduce sesgo en la estimación de las distribuciones conjuntas.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Pipeline de Preprocesamiento}
+    \begin{enumerate}
+        \item Eliminación de duplicados.
+        
+        \item Imputación de valores faltantes por la media.
+        
+        \item Eliminación de valores infinitos.
+        
+        \item Consolidación de etiquetas.
+        
+        \item División en conjuntos train/test.
+        
+        \item Estandarizado de variables numéricas (\texttt{StandardScaler}).
+        
+        \item Balanceo de clases sobre el conjunto de entrenamiento (\texttt{SMOTE}).
+        
+        \item Eliminación de features correlacionadas.
+    \end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Preprocesamiento: Duplicados, faltantes, infinitos y consolidación de etiquetas}
+    \begin{itemize}
+        \item \textbf{Duplicados:} Se detectaron y eliminaron $308\,381$ registros duplicados (\texttt{drop\_duplicates}).
+        
+        \item \textbf{Valores faltantes ($353$):} Imputados utilizando la media de cada columna numérica (\texttt{fillna}), se creo un dataset temporal para evitar conflictos con infinitos.
+        
+        \item \textbf{Valores infinitos ($2$):} Se localizaron y eliminaron las filas que los contenían.
+        
+        \item \textbf{Consolidación de etiquetas (Clave):} Mapeo de variantes textuales de ataques para estandarizar las clases:
+        
+        \begin{itemize}
+            \item Contiene "Web Attack", "DoS", "DDoS", "PortScan", "Bot" o "BENIGN" $\to$ etiqueta correspondiente.
+            
+            \item Resto $\to$ \texttt{"Other"}.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Preprocesamiento: División train/test, estandarización y balanceo de clases}
+    \begin{itemize}
+        \item \textbf{División del Dataset:} Partición 80/20 (80\% entrenamiento, 20\% prueba).
+        
+        \item \textbf{Estandarización:} Escalado de variables numéricas mediante \texttt{StandardScaler} ($\mu \approx 0, \sigma \approx 1$):
+        $$Z = \frac{X - \mu}{\sigma}$$
+        
+        \item \textbf{Aplicación de SMOTE:} Existe una dominancia de la clase \texttt{BENIGN} (Ver Fig. \ref{fig:ant.vs.dps smote}). Aplicamos SMOTE que mediante generación de muestras sintéticas en el conjunto de entrenamiento para las clases minoritarias, evita sesgos hacia la clase dominante.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Preprocesamiento: Features correlacionadas (1)}
+    \begin{itemize}
+        \item \textbf{Motivación:} La presencia de características altamente correlacionadas empeora el desempeño de Naive Bayes (refuerza la violación del supuesto de independencia).
+        
+        \item \textbf{Criterio:} Se define colinealidad alta cuando $|\text{correlación}| > 0.85$.
+        
+        \item \textbf{Procedimiento:}
+        
+        \begin{itemize}
+            \item Cálculo de la matriz de correlación absoluta.
+            
+            \item Se la recorre por pares para registrar la primera variable (de dos altamente correlacionadas) en una lista de exclusión.
+            
+            \item Eliminación de dichas features en los conjuntos $X$ de entrenamiento y prueba (aplicado \textit{después} de SMOTE).
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Preprocesamiento: Features correlacionadas (2)}
+    A continuación, un gráfico de barras que exhibe la cantidad de features antes vs después de la eliminación:
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{Grafico features altamente correlacionadas.png}
+        \caption{Features antes vs después}
+        \label{fig:features corr}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Comparación de resultados}
+    Hacemos una tabla comparativa de los resultados de el paper y los resultados obtenidos en este trabajo. Las métricas utilizadas son: Accuracy, F1-score (macro), F1-score (ponderado)
+    \begin{table}[H]
+    \centering
+    \begin{tabular}{lcccc}
+        \toprule
+        \multirow{2}{*}{Métrica} 
+        & \multicolumn{2}{c}{Paper} 
+        & \multicolumn{2}{c}{Trabajo} \\
+        
+        & Naive Bayes 
+        & MLP 
+        & Naive Bayes 
+        & MLP \\
+        \midrule
+        
+        Accuracy 
+        & $64.59\%$ 
+        & $97.00\%$ 
+        & $61.96\%$ 
+        & $96.61\%$ \\
+        
+        F1-score (macro) 
+        & $48.7\%$ 
+        & $82\%$ 
+        & $42.86\%$ 
+        & $72.64\%$ \\
+        
+        F1-score (ponderado) 
+        & $71\%$ 
+        & $98\%$ 
+        & $70.97\%$ 
+        & $97.21\%$ \\
+        
+        \bottomrule
+    \end{tabular}
+    \caption{Comparación de resultados: Paper vs. Trabajo}
+    \label{tab:comparacion-resultados}
+\end{table}
+\end{frame}
+
+
+\begin{frame}{Comparación de resultados: Matriz de confusión}
+    Con el fin de comparar el desempeño de clasificación de ambos modelos calculamos la matriz de confusión. Esta contrasta las predicciones de las etiquetas realizadas por ambos modelos dado el conjunto de prueba con las etiquetas que realmente les corresponden. Graficamos la matriz con un mapa de calor:
+    \begin{figure}
+        \centering
+        \includegraphics[width=0.75\linewidth]{Mapa de calor.png}
+        \caption{Gráfico de matriz: MLP vs. NB}
+        \label{fig:mapacalor}
+    \end{figure}
+\end{frame}
+
+
+\begin{frame}{Análisis}
+    \begin{itemize}
+        \item \textbf{Comparativa:} Como se ve en las métricas y en el mapa de calor (Tab. \ref{tab:comparacion-resultados} y Fig. \ref{fig:mapacalor}), el MLP clasifica bastante mejor que Naive Bayes en general.
+        
+        \item \textbf{¿Por qué se da esto?} Tiene sentido por el tipo de datos que tiene \textbf{CICIDS-2017} (tráfico de red con variables muy conectadas y muchos datos):
+        
+        \begin{itemize}
+            \item \textbf{A favor del MLP:} Le saca provecho al gran volumen de datos y a su habilidad para capturar relaciones complejas.
+            
+            \item \textbf{En contra de Naive Bayes:} La fuerte correlación entre las características choca directo con su supuesto de independencia condicional, jugándole en contra.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Análisis: ¿Cuando es preferible NB?}
+
+    \begin{itemize}
+        \item \textbf{Contextos ideales:} Naive Bayes se desempeña particularmente bien ante tareas de alta dimensionalidad, clasificaciones de textos y escenarios con escasez de datos. Su simplicidad matemática le otorga grandes ventajas frente a modelos más complejos:
+        \begin{itemize}
+            \item \textbf{Escalabilidad:} No se satura ante un gran número de variables.
+
+            \smallskip
+            
+            \item \textbf{Eficiencia con pocos datos:} Aprende eficazmente con tamaños de muestra reducidos.
+
+            \smallskip
+            
+            \item \textbf{Velocidad:} Altamente rápido tanto en la fase de entrenamiento como en la inferencia.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Ejemplo: Naive Bayes sobre MLP}
+    \begin{itemize}
+        \item \textbf{Motivación:} Buscar un escenario donde Naive Bayes supere al MLP, demostrando que el Deep Learning no siempre es superior.
+        
+        \item \textbf{Paper de referencia:} 
+        \begin{center}
+            \href{https://ejurnal.stmik-budidarma.ac.id/index.php/JSON/article/view/2703/1899}{\textbf{Perbandingan Klasifikasi Website Secara Otomatis...}}
+        \end{center}
+        
+        \item \textbf{Enfoque:} Se evalúa y compara el desempeño de ambos modelos en una tarea específica de clasificación automática de sitios web. Donde, comparándolos en accuracy resulto:
+    \end{itemize}
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|c|c|c|}
+           \hline
+           Métrica  & MLP & Naive Bayes \\
+           \hline
+           Accuracy & $80\%$ & $89\%$ \\
+           \hline
+        \end{tabular}
+        \caption{Accuracy de NB y MLP (paper alternativo)}
+        \label{tab:accuracypaperalt}
+    \end{table}
+\end{frame}
+
+
+\begin{frame}{Análisis: ¿Por qué gano Naive Bayes?}
+    \begin{itemize}
+        \item \textbf{Inversión de desempeño:} Como muestra la Tab. \ref{tab:accuracypaperalt}, Naive Bayes supera al MLP en \textit{accuracy}, contrastando con lo visto en CICIDS-2017.
+
+        \vspace{0.5cm}
+        
+        \item \textbf{¿Por qué ocurre este cambio?} El dataset posee propiedades que benefician a NB y penalizan al MLP, como:
+        \begin{itemize}
+            \item Predominio de \textbf{variables categóricas}.
+
+            \smallskip
+            
+            \item Mayor validez del supuesto de \textbf{independencia condicional}.
+
+            \smallskip
+                
+            \item \textbf{Muestra de tamaño reducido} (donde MLP suele sobre ajustarse o no aprovechar su capacidad).
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Conclusiones generales}
+    Luego de comparar ambos modelos en contextos distintos, podemos concluir que:
+    \begin{itemize}
+        \item \textbf{Se utiliza MLP cuando:} Se tiene un conjunto de datos grande, existen variables con relaciones complejas, y cuando buscamos maximizar precisión, sin importar mucho el sacrificio de la interpretabilidad.
+        \item \textbf{Se utiliza Naive Bayes cuando:} Se tiene un conjunto de datos pequeños, las variables son independientes o poco relacionadas y, cuando se tiene una limitación de recursos o existe la necesidad de predicciones en tiempo real.
+    \end{itemize}
+    
+    \smallskip
+
+    Todo esto no quiere decir que un modelo sea necesariamente mejor que el otro. Pero, si implica que existen contextos donde es preferible elegir, por ejemplo, a MLP sobre NB.
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Bibliografía}
+    \begin{thebibliography}{10}
+        
+        \bibitem{cicids2017}
+        \textbf{Canadian Institute for Cybersecurity (CIC)} (2017): \href{https://www.unb.ca/cic/datasets/ids-2017.html}{\textit{CICIDS-2017 Dataset}}. University of New Brunswick.
+        
+        \bibitem{hastie2009}
+        HASTIE, T.; TIBSHIRANI, R.; FRIEDMAN, J. (2009): \href{https://hastie.su.domains/ElemStatLearn/}{\textit{The Elements of Statistical Learning: Data Mining, Inference, and Prediction}}. Springer Series in Statistics. (Fundamentos de Naive Bayes).
+        
+        \bibitem{goodfellow2016}
+        GOODFELLOW, I.; BENGIO, Y.; COURVILLE, A. (2016): \href{https://www.deeplearningbook.org/}{\textit{Deep Learning}}. MIT Press. (Referencia para Perceptrón Multicapa).
+        
+        \bibitem{paperbase}
+        ALI, M.L et al. (2025): \href{https://www.mdpi.com/2076-3417/15/4/1903}{Deep Learning vs. Machine Learning for Intrusion Detection in Computer Networks: A Comparative Study}. \textit{Applied Sciences}, MDPI.
+        
+        \bibitem{paperalt}
+        I Nyoman Purnama, STMIK PRIMAKARA, Denpasar (2021): \href{https://ejurnal.stmik-budidarma.ac.id/index.php/JSON/article/view/2703/1899}{Perbandingan Klasifikasi Website Secara Otomatis Menggunakan Metode Multilayer Perceptron dan Naive Bayes}. \textit{Jurnal Sistem Informasi (JSON)}, 2(3), 232-239.
+
+    \end{thebibliography}
+\end{frame}
+\end{document}
