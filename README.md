@@ -1,4 +1,4 @@
- 34265# MLP vs Naive Bayes para detección de intrusiones de redes
+MLP vs Naive Bayes para detección de intrusiones de redes
 
 ---
 ## 1. Descripción breve
@@ -83,3 +83,16 @@ Las diferencias en métricas respecto al paper pueden explicarse por distintos f
 ---
 ## 6. Cómo ejecutar
 
+El repositorio se encuentra organizado de la siguiente forma:
+
+MLP-vs-Naive-Bayes/
+├── AI Usage/
+│   └── tpfinal_mad1_naivebayes_mlp_chat.txt
+├── Data/
+│   └── README.md
+├── Notebook/
+│   └── tpfinal_mad1_naivebayes_mlp.ipynb
+├── Reports/
+│   ├── tpfinal_mad1_naivebayes_mlp.tex
+│   └── tpfinal_mad1_naivebayes_mlp.pdf
+└── README.md
